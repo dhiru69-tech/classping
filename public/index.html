@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ClassPing — never miss a session</title>
+<meta name="theme-color" content="#0A0E12" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="icon" href="/icons/icon-192.png" />
+<link rel="apple-touch-icon" href="/icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<div class="scanline-bg" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wordmark">
+    <span class="wordmark-glyph">▚</span>CLASS<span class="accent">PING</span>
+  </div>
+  <button id="statusPill" class="status-pill" type="button">
+    <span class="status-dot"></span><span id="statusText">checking…</span>
+  </button>
+</header>
+
+<main>
+
+  <section class="hero" id="hero">
+    <div class="hero-label">// next up</div>
+    <div class="hero-body">
+      <div class="countdown" id="countdown">--:--:--</div>
+      <div class="hero-meta">
+        <div class="hero-course" id="heroCourse">No classes scheduled</div>
+        <div class="hero-sub" id="heroSub">Add your timetable below to start getting reminders</div>
+      </div>
+    </div>
+    <a class="join-btn" id="heroJoin" href="#" target="_blank" rel="noopener" style="display:none;">
+      Join now →
+    </a>
+  </section>
+
+  <section class="list-section">
+    <div class="list-head">
+      <span class="list-title">// this week</span>
+      <button class="add-btn" id="openAdd" type="button">+ add class</button>
+    </div>
+
+    <div class="table-head">
+      <span>day</span><span>time</span><span>course</span><span>reminder</span><span></span>
+    </div>
+
+    <div id="courseList" class="course-list">
+      <div class="empty-state" id="emptyState">
+        <p>$ no courses configured</p>
+        <p class="dim">Tap <strong>+ add class</strong> to load your first session — day, start time, and the Teams join link from Moodle.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="install-note" id="installNote">
+    <p><strong>Install this as an app:</strong> open the browser menu → <em>Add to Home Screen</em>. It'll sit on your home screen like any other app and keep working when the tab is closed, as long as notifications stay enabled.</p>
+  </section>
+
+</main>
+
+<!-- Add course sheet -->
+<div class="sheet-backdrop" id="sheetBackdrop">
+  <form class="sheet" id="courseForm">
+    <div class="sheet-head">
+      <span>// new class</span>
+      <button type="button" id="closeAdd" class="sheet-close">esc</button>
+    </div>
+
+    <label>course name
+      <input type="text" id="fName" placeholder="BO ACS 201 — Foundations of Cyber Security" required />
+    </label>
+
+    <label>day
+      <select id="fDay" required>
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6" selected>Saturday</option>
+        <option value="0">Sunday</option>
+      </select>
+    </label>
+
+    <div class="field-row">
+      <label>start time
+        <input type="time" id="fTime" required />
+      </label>
+      <label>remind me
+        <select id="fReminder">
+          <option value="10">10 min before</option>
+          <option value="15">15 min before</option>
+          <option value="30" selected>30 min before</option>
+          <option value="60">60 min before</option>
+        </select>
+      </label>
+    </div>
+
+    <label>join link (Teams)
+      <input type="url" id="fLink" placeholder="https://teams.microsoft.com/meet/..." required />
+    </label>
+
+    <button type="submit" class="submit-btn">save class</button>
+  </form>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
