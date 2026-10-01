@@ -8,8 +8,15 @@ on:
 jobs:
   ping:
     runs-on: ubuntu-latest
+    env:
+      CLASSPING_URL: ${{ secrets.CLASSPING_URL || vars.CLASSPING_URL }}
+      CRON_SECRET: ${{ secrets.CRON_SECRET || vars.CRON_SECRET }}
     steps:
       - name: Call cron-check endpoint
         run: |
-          curl -sf -X GET "${{ secrets.CLASSPING_URL }}/api/cron-check" \
-            -H "x-cron-secret: ${{ secrets.CRON_SECRET }}"
+          if [ -z "$CLASSPING_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "::error::Missing CLASSPING_URL/CRON_SECRET (set repository secret or variable)."
+            exit 1
+          fi
+          curl -sf -X GET "${CLASSPING_URL}/api/cron-check" \
+            -H "x-cron-secret: ${CRON_SECRET}"
